@@ -1,0 +1,49 @@
+{
+    "name": "maksa988/laravel-admin",
+    "description": "Admin interface for Laravel",
+    "keywords": [
+        "laravel",
+        "admin"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "maksa988",
+            "email": "maksa988ua@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.0",
+        "davejamesmiller/laravel-breadcrumbs": "5.x",
+        "illuminate/support": "^5.7.15 | 5.8.*",
+        "spatie/laravel-permission": "^2.37",
+        "spatie/laravel-translation-loader": "^2.3"
+    },
+    "require-dev": {
+        "orchestra/testbench": "3.7.* | 3.8.*",
+        "phpunit/phpunit": "^7.0 | ^8.0",
+    },
+    "autoload": {
+        "psr-4": {
+            "Maksa988\\LaravelAdmin\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Maksa988\\FreeKassa\\Test\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Maksa988\\LaravelAdmin\\LaravelAdminServiceProvider"
+            ],
+            "aliases": {
+                "LaravelAdmin": "Maksa988\\LaravelAdmin\\Facades\\LaravelAdmin"
+            }
+        }
+    }
+}
