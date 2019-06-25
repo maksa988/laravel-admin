@@ -15,26 +15,24 @@ class BreadcrumbsManager extends Base
      */
     public function resource($name, $title)
     {
-        $routeName = $this->getCurrentRoute()[0];
-
-        $this->for($name . '.index', function ($trail) use ($name, $title, $routeName) {
+        $this->for($name . '.index', function ($trail) use ($name, $title) {
             $trail->parent(config('admin.breadcrumbs.parent.name'));
-            $trail->push(__($title), route($routeName));
+            $trail->push(__($title), route($name . '.index'));
         });
 
-        $this->for($name . '.create', function ($trail) use ($name, $title, $routeName) {
+        $this->for($name . '.create', function ($trail) use ($name, $title) {
             $trail->parent($name . '.index');
-            $trail->push(__("Create"), route($routeName));
+            $trail->push(__("Create"), route($name . '.create'));
         });
 
-        $this->for($name . '.edit', function ($trail) use ($name, $title, $routeName) {
+        $this->for($name . '.edit', function ($trail, $data) use ($name, $title) {
             $trail->parent($name . '.index');
-            $trail->push(__("Edit"), route($routeName));
+            $trail->push(__("Edit"), route($name . '.edit', $data));
         });
 
-        $this->for($name . '.show', function ($trail) use ($name, $title, $routeName) {
+        $this->for($name . '.show', function ($trail, $data) use ($name, $title) {
             $trail->parent($name . '.index');
-            $trail->push(__("Create"), route($routeName));
+            $trail->push($data->title ?? __("Show"), route($name . '.show'));
         });
     }
 }

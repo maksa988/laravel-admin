@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Maksa988\LaravelAdmin\Console\ControllerMakeCommand;
+use Maksa988\LaravelAdmin\Console\RequestMakeCommand;
 
 class LaravelAdminServiceProvider extends ServiceProvider
 {
@@ -21,6 +23,19 @@ class LaravelAdminServiceProvider extends ServiceProvider
         }
 
         $this->registerResources();
+    }
+
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->commands([
+            RequestMakeCommand::class,
+            ControllerMakeCommand::class,
+        ]);
     }
 
     /**
@@ -145,5 +160,7 @@ class LaravelAdminServiceProvider extends ServiceProvider
         Blade::directive('breadcrumbs', function ($expression) {
             return "<?php echo Breadcrumbs::render($expression); ?>";
         });
+
+        Blade::component('admin::components._form-group', 'formGroup');
     }
 }
