@@ -1,5 +1,7 @@
 <div class="form-group row">
-    <label for="{{ $name }}" class="col-lg-4">@lang($label ?? Str::ucfirst($name)):</label>
+    @if((isset($label) && $label !== false) || !isset($label))
+    <label for="{{ $name }}" class="col-lg">@lang($label ?? Str::ucfirst($name)):</label>
+    @endif
     {{ $slot }}
     <div class="offset-lg-4 invalid-feedback">
         {{ $errors->first($name) }}
