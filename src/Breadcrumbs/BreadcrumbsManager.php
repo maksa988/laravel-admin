@@ -22,17 +22,17 @@ class BreadcrumbsManager extends Base
 
         $this->for($name . '.create', function ($trail) use ($name, $title) {
             $trail->parent($name . '.index');
-            $trail->push(__("Create"), route($name . '.create'));
+            $trail->push(__("*.Create"), route($name . '.create'));
         });
 
         $this->for($name . '.edit', function ($trail, $data) use ($name, $title) {
             $trail->parent($name . '.index');
-            $trail->push(__("Edit"), route($name . '.edit', $data));
+            $trail->push(__("*.Edit"), route($name . '.edit', $data));
         });
 
         $this->for($name . '.show', function ($trail, $data) use ($name, $title) {
             $trail->parent($name . '.index');
-            $trail->push($data->title ?? __("Show"), route($name . '.show'));
+            $trail->push($data->title ?? __("*.Show"), route($name . '.show', $data));
         });
     }
 }

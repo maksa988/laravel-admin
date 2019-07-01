@@ -24,6 +24,9 @@
         "phpunit/phpunit": "^7.0 | ^8.0"
     },
     "autoload": {
+        "files": [
+            "src/Support/helpers.php"
+        ],
         "psr-4": {
             "Maksa988\\LaravelAdmin\\": "src"
         }

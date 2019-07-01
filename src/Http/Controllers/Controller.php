@@ -17,7 +17,7 @@ abstract class Controller extends BaseController
      * @param  \Illuminate\Contracts\Support\Arrayable|array $data
      * @param  array $mergeData
      *
-     * @return \Illuminate\View\View
+     * @return \Illuminate\View\View|\Illuminate\Http\Response
      */
     protected function view($package = false, $data = [], $mergeData = [])
     {
