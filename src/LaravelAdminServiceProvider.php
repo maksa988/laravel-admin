@@ -32,6 +32,8 @@ class LaravelAdminServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        parent::register();
+
         $this->commands([
             RequestMakeCommand::class,
             ControllerMakeCommand::class,
@@ -54,13 +56,13 @@ class LaravelAdminServiceProvider extends ServiceProvider
             __DIR__.'/../resources/sass' => resource_path('sass'),
         ], 'admin-assets');
 
-//        $this->publishes([
-//            __DIR__.'/../resources/views' => resource_path('views/vendor/admin'),
-//        ], 'admin-views');
-
         $this->publishes([
-            __DIR__.'/../database/migrations' => database_path('migrations'),
-        ], 'admin-migrations');
+            __DIR__.'/../resources/views' => resource_path('views/vendor/admin'),
+        ], 'admin-views');
+
+//        $this->publishes([
+//            __DIR__.'/../database/migrations' => database_path('migrations'),
+//        ], 'admin-migrations');
     }
 
     /**
@@ -72,7 +74,7 @@ class LaravelAdminServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'admin');
 
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+//        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
         $this->registerRoutes();
         $this->registerBreadcrumbs();
