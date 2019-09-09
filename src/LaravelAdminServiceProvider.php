@@ -22,7 +22,9 @@ class LaravelAdminServiceProvider extends ServiceProvider
             $this->registerPublishing();
         }
 
-        $this->registerResources();
+        if(! $this->app->runningInConsole()) {
+            $this->registerResources();
+        }
     }
 
     /**
