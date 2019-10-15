@@ -37,6 +37,10 @@ class ControllerMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
+        if($this->option('request')) {
+            return __DIR__ . '/stubs/request.controller.stub';
+        }
+
         return __DIR__ . '/stubs/controller.stub';
     }
 
@@ -67,12 +71,63 @@ class ControllerMakeCommand extends GeneratorCommand
 
         $replace = $this->buildModelReplacements($replace);
 
+        if($this->option('request')) {
+            $replace = $this->buildRequestReplacements($replace);
+        }
+
         $replace["use {$controllerNamespace}\Controller;\n"] = '';
 
         return str_replace(
             array_keys($replace), array_values($replace), parent::buildClass($name)
         );
 
+    }
+
+    /**
+     * Build the request replacement values.
+     *
+     * @param  array $replace
+     * @return array
+     */
+    protected function buildRequestReplacements(array $replace)
+    {
+        $requestClass = $this->parseRequest($this->option('request'));
+
+        if(! class_exists($requestClass)) {
+            if($this->confirm("A {$requestClass} request does not exist. Do you want to generate it?", true)) {
+                $this->call('admin:request', ['name' => class_basename($requestClass)]);
+            }
+        }
+
+        return array_merge($replace, [
+            'DummyFullRequestClass' => $requestClass,
+            'DummyRequestClass' => class_basename($requestClass),
+        ]);
+    }
+
+    /**
+     * Get the fully-qualified request class name.
+     *
+     * @param  string  $request
+     * @return string
+     *
+     * @throws \InvalidArgumentException
+     */
+    protected function parseRequest($request)
+    {
+        $request = Str::replaceLast('Request', '', $request);
+
+        if (preg_match('([^A-Za-z0-9_/\\\\])', $request)) {
+            throw new InvalidArgumentException('Request name contains invalid characters.');
+        }
+
+        $request = trim(str_replace('/', '\\', $request), '\\');
+
+        if (! Str::startsWith($request, $rootNamespace = $this->laravel->getNamespace())) {
+            $request = $rootNamespace.'Http\Requests\Admin\\'.$request;
+        }
+
+        return $request . 'Request';
     }
 
     /**
@@ -130,6 +185,7 @@ class ControllerMakeCommand extends GeneratorCommand
     {
         return [
             ['model', 'm', InputOption::VALUE_REQUIRED, 'Generate a resource controller for the given model.'],
+            ['request', 'r', InputOption::VALUE_OPTIONAL, 'Generate a resource controller with a given request class.'],
         ];
     }
 }

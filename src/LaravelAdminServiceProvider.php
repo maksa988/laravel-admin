@@ -59,10 +59,6 @@ class LaravelAdminServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../resources/views' => resource_path('views/vendor/admin'),
         ], 'admin-views');
-
-//        $this->publishes([
-//            __DIR__.'/../database/migrations' => database_path('migrations'),
-//        ], 'admin-migrations');
     }
 
     /**
@@ -73,8 +69,7 @@ class LaravelAdminServiceProvider extends ServiceProvider
     protected function registerResources()
     {
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'admin');
-
-//        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->mergeConfigFrom(__DIR__.'/../config/admin.php', 'admin');
 
         $this->registerRoutes();
         $this->registerBreadcrumbs();

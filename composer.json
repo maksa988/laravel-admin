@@ -15,8 +15,8 @@
     "require": {
         "php": ">=7.1.0",
         "davejamesmiller/laravel-breadcrumbs": "5.x",
-        "illuminate/support": "^5.7.15 | 5.8.*",
-        "spatie/laravel-permission": "^2.37",
+        "illuminate/support": "^6.0",
+        "spatie/laravel-permission": "^3.0",
         "spatie/laravel-translation-loader": "^2.3"
     },
     "require-dev": {

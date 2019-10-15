@@ -1,0 +1,97 @@
+<?php
+
+namespace DummyNamespace;
+
+use DummyFullModelClass;
+use DummyFullRequestClass;
+use Illuminate\Http\Request;
+use Maksa988\LaravelAdmin\Http\Controllers\Controller;
+
+class DummyClass extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @param DummyModelClass $DummyModelVariable
+     * @return \Illuminate\Http\Response
+     */
+    public function index(DummyModelClass $DummyModelVariable)
+    {
+        $list = $DummyModelVariable->paginate(20);
+
+        return $this->view(compact('list'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return $this->view();
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param DummyRequestClass $request
+     * @param DummyModelClass $DummyModelVariable
+     * @return \Illuminate\Http\Response
+     */
+    public function store(DummyRequestClass $request, DummyModelClass $DummyModelVariable)
+    {
+        $DummyModelVariable->create($request->all());
+
+        return back()->with('success', true);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param DummyModelClass $DummyModelVariable
+     * @return \Illuminate\Http\Response
+     */
+    public function show(DummyModelClass $DummyModelVariable)
+    {
+        return $this->view(compact('DummyModelVariable'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param DummyModelClass $DummyModelVariable
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(DummyModelClass $DummyModelVariable)
+    {
+        return $this->view(compact('DummyModelVariable'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param DummyRequestClass $request
+     * @param DummyModelClass $DummyModelVariable
+     * @return \Illuminate\Http\Response
+     */
+    public function update(DummyRequestClass $request, DummyModelClass $DummyModelVariable)
+    {
+        $DummyModelVariable->update($request->all());
+
+        return back()->with('success', true);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param DummyModelClass $DummyModelVariable
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(DummyModelClass $DummyModelVariable)
+    {
+        $DummyModelVariable->delete();
+
+        return back();
+    }
+}
