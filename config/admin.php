@@ -40,7 +40,7 @@ return [
          * You can use own controllers to extends admin panel.
          * This namespace using for Admin Routes [routes].
          */
-        'namespace' => 'App\Http\Controllers\Admin',
+        'namespace' => '',
 
         /*
          * Admin Route Middleware
